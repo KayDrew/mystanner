@@ -1,0 +1,162 @@
+ body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0f2f5;
+            padding: 10px;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            
+      padding: 0;
+        }
+.container{width: 90%
+margin: 0 auto;
+padding: 10px;
+}
+img{
+width: 80px;
+margin-top: -5px;
+margin-left: '5px;
+}
+        .dropdown-container {
+            display: flex;
+            gap: 10px; /* Space between the dropdowns */
+        }
+
+        select {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            padding: 12px 24px;
+            border-radius: 8px;
+            border: 2px solid #dddfe2;
+            background-color: #ffffff;
+            color: #1c1e21;
+            cursor: pointer;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            appearance: none; /* Remove default arrow */
+            background-image: url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%231c1e21%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E");
+            background-repeat: no-repeat;
+            background-position: right 12px center;
+            background-size: 12px;
+        }
+
+        select:hover {
+            border-color: #1877f2; /* Facebook blue */
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        select:focus {
+            border-color: #1877f2;
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.2);
+        }
+
+        select option {
+            font-family: 'Poppins', sans-serif;
+            font-size: 16px;
+            padding: 10px;
+        }
+        
+             .fancy-button {
+            background-color: #007BFF;
+            border: none;
+            color: #ffffff;
+            padding: 15px 30px;
+            font-family: 'Poppins', sans-serif;
+           font-size: 18px; 
+            font-weight: 300;
+            cursor: pointer;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+            width:100%;
+            margin-top: 20px;
+        }
+
+        .fancy-button:hover {
+            background-color: #007BFF;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        ol {
+      list-style-type: decimal;
+      padding-left: 20px;
+    }
+
+    li {
+      margin-bottom: 10px;
+    }
+
+    /* Hidden and blurred items */
+    .hidden {
+      display: none;
+    }
+
+    .blurred {
+      filter: blur(5px);
+    }
+
+    /* See More button styles */
+    #seeMore {
+      cursor: pointer;
+      padding: 5px 10px;
+      border: none;
+      background-color: transparent;
+      color: #007BFF;
+      font-size: 16px;
+      border-radius: 5px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    #seeMore:hover {
+      background-color: #007BFF;
+      color: white;
+    }
+
+    #seeMore:active {
+      transform: scale(0.95);
+    }
+    
+    .results{
+        margin-top: 60px;
+    }
+    
+    header{
+        margin-bottom: 50px;
+    }
+      .subscribe-link {
+      position: fixed;
+      top: 20px;
+      right: 20px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      color: black;
+      font-size: 14px;
+      font-weight: bold;
+      padding: 10px 15px;
+      border-radius: 25px;
+      font-family: Arial, sans-serif;           
+      background-color: rgba(255, 255, 255, 0.9);
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transition: background-color 0.3s ease, transform 0.3s ease;
+    }
+
+    /* Hover effect */
+    .subscribe-link:hover {
+      background-color: rgba(0, 0, 0, 0.9);
+      color: white;
+      transform: translateY(-2px);
+    }
+
+    /* Icon styling */
+    .subscribe-link i {
+      font-size: 20px;
+    }
+    
+    h1{
+margin-bottom: 40px;
+text-align: center;
+}
