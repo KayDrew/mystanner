@@ -1,0 +1,78 @@
+<head>
+<title>reactions</title>
+</head>
+<body>
+<div class="container">
+  <h1>Find Out Who Reacts To Your Posts</h1>
+    <div class="dropdown-container">
+        <!-- Top Selection Dropdown -->
+        <select name="top-selection" id="top-selection">
+            <option value="top-10">Top 10</option>
+            <option value="top-20">Top 20</option>
+            <option value="top-50">Top 50</option>
+            <option value="top-100">Top 100</option>
+        </select>
+
+        <!-- Facebook Reactions Dropdown -->
+        <select name="facebook-reactions" id="facebook-reactions">
+            <option value="all">All</option>
+            <option value="like">👍 Like</option>
+            <option value="love">❤️ Love</option>
+            <option value="care">🥰 Care</option>
+            <option value="haha">😆 Haha</option>
+            <option value="wow">😮 Wow</option>
+            <option value="sad">😢 Sad</option>
+            <option value="angry">😡 Angry</option>
+        </select>
+
+        <!-- Time Range Dropdown -->
+        <select name="time-range" id="time-range">
+            <option value="today">Today</option>
+            <option value="yesterday">Yesterday</option>
+            <option value="this-week">This Week</option>
+            <option value="last-week">Last Week</option>
+            <option value="this-month">This Month</option>
+            <option value="last-month">Last Month</option>
+            <option value="this-year">This Year</option>
+            <option value="last-year">Last Year</option>
+            <option value="all-time">All Time</option>
+        </select>
+    </div>
+    <button class="fancy-button">View Fans</button>
+    <div class="results">
+      <ol>
+    <li>John Doe ~ 150</li>
+    <li>Jane Smith ~ 140</li>
+    <li>Alice Johnson ~ 130</li>
+    <li>Bob Brown ~ 120</li>
+    <li>Charlie Davis ~ 110</li>
+    <li class="hidden blurred">Eve Wilson ~ 100</li>
+    <li class="hidden blurred">Frank Moore ~ 90</li>
+    <li class="hidden blurred">Grace Taylor ~ 80</li>
+    <li class="hidden blurred">Hank White ~ 70</li>
+    <li class="hidden blurred">Ivy Harris ~ 60</li>
+  </ol>
+  </div>
+  <button id="seeMore">See More..</button>
+</div>
+<footer>
+   
+    <div class="footer-links">
+    <a href="/contact-us">Contact Us</a>
+      <a href="/privacy-policy">Privacy Policy</a>
+      
+    </div>
+    <img src="logo.png" alt="logo">
+     <p>© 2025 Mystanner. All Rights Reserved.</p>
+  </footer>
+  <script>
+    document.getElementById('seeMore').addEventListener('click', function() {
+      const hiddenItems = document.querySelectorAll('.hidden');
+      hiddenItems.forEach(item => {
+        item.classList.remove('hidden', 'blurred');
+      });
+      this.style.display = 'none'; // Hide the button after clicking
+    });
+  </script>
+</body>
+</html>
