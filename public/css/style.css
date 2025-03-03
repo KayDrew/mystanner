@@ -259,20 +259,29 @@ width: 30px;
         transform: translateY(-5px);
       }
     }
+    .facebook-login {
+    
+    align-items: center;
+    justify-content: center;
+    background: blue;
+    color: white;
+    font-size: 16px;
+    font-weight: bold;
+    border: none;
+    border-radius: 5px;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
 
-    .continue-button {
-      padding: 15px 30px;
-      font-size: 1.2rem;
-      color: white;
-      background: linear-gradient(45deg, #833AB4, #E1306C);
-      border: none;
-      border-radius: 25px;
-      cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-      transition: transform 0.2s, box-shadow 0.2s;
-    }
+.facebook-login:hover {
+    background: linear-gradient(to right, #0D47A1, #1877F2);
+}
 
-    .continue-button:hover {
-      transform: scale(1.05);
-      box-shadow: 0 6px 8px rgba(0, 0, 0, 0.3);
-    }
+.facebook-icon {
+    font-family: Arial, sans-serif;
+    font-size: 20px;
+    font-weight: bold;
+    margin-right: 10px;
+    
+}
