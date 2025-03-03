@@ -2,15 +2,12 @@ const express = require('express');
 const app = express();
 const dotenv = require('dotenv');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
 const FacebookStrategy = require('passport-facebook').Strategy;
 const session = require('express-session');
 const engine= require('express-handlebars'). engine;
 //import { engine } from 'express-handlebars';
-//const routes = require ('./routes');
-const LocalStrategy = require('passport-local').Strategy;
+const routes = require ('./routes');
 const server= require("http").createServer(app);
-
 const cookieParser= require ("cookie-parser");
 dotenv.config();
 
