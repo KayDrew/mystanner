@@ -226,6 +226,10 @@ height: 100vh;
         transform: translateY(-5px);
       }
     }
+    .btnContainer {
+  position: relative;
+}
+
     .facebook-login {
     
     align-items: center;
@@ -242,6 +246,11 @@ height: 100vh;
     cursor: pointer;
     margin-left: 10%;
     transition: background 0.3s ease;
+    position: absolute;
+  top: 50%; /* Moves button to the middle vertically */
+  left: 50%; /* Moves button to the middle horizontally */
+  transform: translate(-50%, -50%); /* Centers the button */
+  
 }
 
 .facebook-login:hover {
