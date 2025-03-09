@@ -23,7 +23,7 @@ app.use(express.urlencoded({ extended: false }));
 
 
 const sessionMiddleware = session({
-  secret: process.env.SECRET,
+  secret: process.env.APP_SECRET,
   resave: false,
   saveUninitialized: false,
   cookie: {maxAge: 60000},
@@ -38,7 +38,7 @@ app.use(passport.session());
 passport.use(new FacebookStrategy({
     clientID:process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "http://localhost:3000/facebook/login",
+    callbackURL: "/facebook/login",
   },
   function(accessToken, refreshToken, profile, cb) {
     
@@ -99,6 +99,27 @@ id: req.user.id,
 });
 });
 
+app.get("/privacypolicy", function(req,res){
+
+res.render("policy");
+});
+
+app.get("/termsofservice", function(req,res){
+
+res.render("terms");
+});
+
+app.get("/datapolicy", function(req,res){
+
+res.render("deletion");
+});
+
+app.get("/contact", function(req,res){
+
+res.render("contact");
+
+});
+
 
 app.post('/logout', function(req, res, next) {
 	
@@ -107,6 +128,7 @@ app.post('/logout', function(req, res, next) {
     if (err) { return next(err); 
 
 }
+
 
 req.session.destroy( function(err){// destroys session  on both ends
 if(err){

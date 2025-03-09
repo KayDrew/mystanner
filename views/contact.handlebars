@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us - MyStanner</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f9f9f9; /* Light white background */
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        .container {
+            background-color: #ffffff; /* White background for the form */
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 500px;
+            width: 100%;
+        }
+
+        h1 {
+            color: #000000; /* Black for the heading */
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 28px;
+        }
+
+        p {
+            color: #333333; /* Dark gray for text */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .contact-info {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .contact-info a {
+            color: #007BFF; /* Blue for links */
+            text-decoration: none;
+        }
+
+        .contact-info a:hover {
+            text-decoration: underline;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            color: #000000; /* Black for labels */
+            margin-bottom: 5px;
+            font-weight: bold;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #333333;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: #007BFF; /* Blue for focus */
+            outline: none;
+        }
+
+        .submit-btn {
+            background-color: #007BFF; /* Blue for the button */
+            color: #ffffff; /* White text */
+            border: none;
+            padding: 12px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            width: 100%;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Contact Us</h1>
+        <p>We'd love to hear from you! Reach out to us for any questions, feedback, or support.</p>
+
+        <div class="contact-info">
+          <p><strong>Email:</strong> <a href="mailto:info@mystanner.com">info@mystanner.com</a></p>
+        </div>
+
+        <form action="#" method="POST">
+            <div class="form-group">
+                <label for="name">Name</label>
+                <input type="text" id="name" name="name" placeholder="Your Name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="Your Email" required>
+            </div>
+            <div class="form-group">
+                <label for="subject">Subject</label>
+                <input type="text" id="subject" name="subject" placeholder="Subject" required>
+            </div>
+            <div class="form-group">
+                <label for="message">Message</label>
+                <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+            </div>
+            <button type="submit" class="submit-btn">Send Message</button>
+        </form>
+    </div>
+</body>
+</html>

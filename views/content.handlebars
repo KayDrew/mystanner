@@ -2,8 +2,16 @@
 <title>reactions</title>
 </head>
 <body>
+<header>
+<a href="/"><img src="/images/logo.png" alt="logo"></a>
+<form action="/logout" method="post">
+<button class="subscribe-link" type="submit">
+<i class="fa fa-sign-out" aria-hidden="true"></i>
+    <span>Logout</span>
+  </button>
+  </form>
 <div class="container">
-  <h1>Find Out Who Reacts To Your Posts</h1>
+  <h1>Choose How Many Posts You Would Like To Analyze. </h1>
     <div class="dropdown-container">
         <!-- Top Selection Dropdown -->
         <select name="top-selection" id="top-selection">
@@ -38,41 +46,32 @@
             <option value="all-time">All Time</option>
         </select>
     </div>
-    <button class="fancy-button">View Fans</button>
+    <button class="fancy-button">View Reactions</button>
     <div class="results">
       <ol>
-    <li>John Doe ~ 150</li>
-    <li>Jane Smith ~ 140</li>
-    <li>Alice Johnson ~ 130</li>
-    <li>Bob Brown ~ 120</li>
-    <li>Charlie Davis ~ 110</li>
-    <li class="hidden blurred">Eve Wilson ~ 100</li>
-    <li class="hidden blurred">Frank Moore ~ 90</li>
-    <li class="hidden blurred">Grace Taylor ~ 80</li>
-    <li class="hidden blurred">Hank White ~ 70</li>
-    <li class="hidden blurred">Ivy Harris ~ 60</li>
+    <li>❤️ Love~ 150</li>
+    <li>👍 Like ~ 140</li>
+    <li>🥰 Care~ 130</li>
+    <li>😮 Wow ~ 120</li>
+    <li>😭 Sad ~ 110</li>
+    <li>😡 Angry</li>
+
   </ol>
   </div>
-  <button id="seeMore">See More..</button>
+
 </div>
+
 <footer>
    
     <div class="footer-links">
-    <a href="/contact-us">Contact Us</a>
-      <a href="/privacy-policy">Privacy Policy</a>
+    <a href="/contact">Contact Us</a>
+      <a href="/privacypolicy">Privacy Policy</a>
+      <a href="/termsofservice">Terms of Service</a>
+      <a href="/datapolicy">Data Deletion Policy</a>
       
     </div>
-    <img src="logo.png" alt="logo">
+    <img src="/images/logo.png" alt="logo">
      <p>© 2025 Mystanner. All Rights Reserved.</p>
   </footer>
-  <script>
-    document.getElementById('seeMore').addEventListener('click', function() {
-      const hiddenItems = document.querySelectorAll('.hidden');
-      hiddenItems.forEach(item => {
-        item.classList.remove('hidden', 'blurred');
-      });
-      this.style.display = 'none'; // Hide the button after clicking
-    });
-  </script>
 </body>
 </html>
