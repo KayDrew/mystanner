@@ -10,6 +10,7 @@ const routes = require ('./routes');
 const server= require("http").createServer(app);
 const cookieParser= require ("cookie-parser");
 const axios = require ("axios");
+const crypto = require('crypto');
 dotenv.config();
 
 // view engine setup
@@ -21,6 +22,36 @@ app.use(express.static('images'));
 
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+
+
+//app secret proof
+function generateAppSecretProof(accessToken, appSecret) {
+  return crypto
+    .createHmac('sha256', appSecret)
+    .update(accessToken)
+    .digest('hex');
+}
+
+
+
+async function fetchUserProfile(accessToken) {
+  const appSecretProof = generateAppSecretProof(accessToken, process.env.FACEBOOK_APP_SECRET);
+
+  try {
+    const response = await axios.get(`https://graph.facebook.com/v19.0/me`, {
+      params: {
+        access_token: accessToken,
+        appsecret_proof: appSecretProof,
+        fields: 'id,name,email', // Request specific fields
+      },
+    });
+
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching user profile:', error.response ? error.response.data : error.message);
+    throw error;
+  }
+}
 
 
 const sessionMiddleware = session({
@@ -37,18 +68,38 @@ app.use(passport.session());
 
 
 passport.use(new FacebookStrategy({
-    clientID:process.env.FACEBOOK_APP_ID,
-    clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: "/facebook/login",
-  },
-  function(accessToken, refreshToken, profile, cb) {
-    
-    console.log(profile.displayName);
-    let user={name: profile.displayName, id:profile.id};
-      return cb(null, user);
-    
-  }
-));
+  clientID: process.env.FACEBOOK_APP_ID,
+  clientSecret: process.env.FACEBOOK_APP_SECRET,
+  callbackURL: process.env.REDIRECT_URI,
+  profileFields: ['id', 'emails', 'name'],
+  enableProof: true, // Automatically generates appsecret_proof
+},
+(accessToken, refreshToken, profile, cb) => {
+  // Verify the access token with Facebook
+  const appSecretProof = generateAppSecretProof(accessToken, process.env.FACEBOOK_APP_SECRET);
+
+  axios.get(`https://graph.facebook.com/debug_token`, {
+    params: {
+      input_token: accessToken,
+      access_token: `${process.env.FACEBOOK_APP_ID}|${process.env.FACEBOOK_APP_SECRET}`,
+      appsecret_proof: appSecretProof, // Include appsecret_proof
+    },
+  })
+    .then(response => {
+      if (response.data.data.is_valid) {
+
+        console.log(profile.displayName);
+        let user={name: profile.displayName, id:profile.id};
+          return cb(null, user);
+
+      } else {
+        // Token is invalid
+        return cb(null, false, { message: 'Invalid token' });
+      }
+    })
+    .catch(error => done(error));
+}));
+
 
 
 passport.serializeUser( (user, done) => {
@@ -153,68 +204,7 @@ console.log("running on port 3000");
 
 //security 
 
-const crypto = require('crypto');
-
-function generateAppSecretProof(accessToken, appSecret) {
-  return crypto
-    .createHmac('sha256', appSecret)
-    .update(accessToken)
-    .digest('hex');
-}
 
 
-const axios = require('axios');
-
-async function fetchUserProfile(accessToken) {
-  const appSecretProof = generateAppSecretProof(accessToken, process.env.FACEBOOK_APP_SECRET);
-
-  try {
-    const response = await axios.get(`https://graph.facebook.com/v19.0/me`, {
-      params: {
-        access_token: accessToken,
-        appsecret_proof: appSecretProof,
-        fields: 'id,name,email', // Request specific fields
-      },
-    });
-
-    return response.data;
-  } catch (error) {
-    console.error('Error fetching user profile:', error.response ? error.response.data : error.message);
-    throw error;
-  }
-}
 
 
-const passport = require('passport');
-const FacebookStrategy = require('passport-facebook').Strategy;
-const axios = require('axios');
-
-passport.use(new FacebookStrategy({
-  clientID: process.env.FACEBOOK_APP_ID,
-  clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: process.env.REDIRECT_URI,
-  profileFields: ['id', 'emails', 'name'],
-  enableProof: true, // Automatically generates appsecret_proof
-},
-(accessToken, refreshToken, profile, done) => {
-  // Verify the access token with Facebook
-  const appSecretProof = generateAppSecretProof(accessToken, process.env.FACEBOOK_APP_SECRET);
-
-  axios.get(`https://graph.facebook.com/debug_token`, {
-    params: {
-      input_token: accessToken,
-      access_token: `${process.env.FACEBOOK_APP_ID}|${process.env.FACEBOOK_APP_SECRET}`,
-      appsecret_proof: appSecretProof, // Include appsecret_proof
-    },
-  })
-    .then(response => {
-      if (response.data.data.is_valid) {
-        // Token is valid, proceed with user authentication
-        return done(null, profile);
-      } else {
-        // Token is invalid
-        return done(null, false, { message: 'Invalid token' });
-      }
-    })
-    .catch(error => done(error));
-}));
