@@ -71,7 +71,7 @@ passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
   callbackURL: process.env.REDIRECT_URI,
-  profileFields: ['id', 'emails', 'name'],
+  profileFields: ['id','name'],
   enableProof: true, // Automatically generates appsecret_proof
 },
 (accessToken, refreshToken, profile, cb) => {
@@ -88,8 +88,8 @@ passport.use(new FacebookStrategy({
     .then(response => {
       if (response.data.data.is_valid) {
 
-        console.log(profile.displayName);
-        let user={name: profile.displayName, id:profile.id};
+        console.log(profile);
+        let user={name: profile.name, id:profile.id};
           return cb(null, user);
 
       } else {
@@ -181,7 +181,6 @@ app.post('/logout', function(req, res, next) {
 
 }
 
-
 req.session.destroy( function(err){// destroys session  on both ends
 if(err){
 
@@ -193,7 +192,11 @@ return next(err);
   });
 });
 
+app.post('/seeReactions',function(req,res){
 
+  res.redirect('/content');
+
+});
 
 
 server.listen(3000,()=>{

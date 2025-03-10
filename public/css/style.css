@@ -9,14 +9,15 @@
             
       padding: 0;
         }
-.container{width: 90%
+
+.container{width: 90%;
 margin: 0 auto;
 padding: 10px;
 }
 img{
 width: 80px;
 margin-top: -5px;
-margin-left: '5px;
+margin-left: 5px;
 }
         .dropdown-container {
             display: flex;
@@ -175,12 +176,25 @@ width: 30px;
 
 @media (min-width: 928px) {
   footer img {
-    width: 90px; 
+    width: 80px; 
+  }
+
+  footer p{
+    font-size: medium;
+
   }
   
     .body  h1 {
       font-size: 3rem;
       
+    }
+
+    header img{
+      width: 120px;
+    }
+
+    .fancy-button{
+      max-width: 500px;
     }
 
 }
@@ -190,6 +204,7 @@ width: 30px;
 .body{
 
 height: 100vh;
+
 }
 
   .body  h1 {
@@ -204,11 +219,12 @@ height: 100vh;
       margin-top: 5px;
       font-weight: normal;
       text-align: center;
+      
     }
 
     .arrow {
       font-size: 2rem;
-      margin: 10px 0;
+    
       animation: bounce 1.5s infinite;
       text-align: center;
     }
@@ -228,6 +244,7 @@ height: 100vh;
     }
     .btnContainer {
   position: relative;
+  margin-bottom: 100px;
 }
 
     .facebook-login {
@@ -244,12 +261,11 @@ height: 100vh;
     border-radius: 5px;
     padding: 12px 20px;
     cursor: pointer;
-    margin-left: 10%;
     transition: background 0.3s ease;
     position: absolute;
-  top: 50%; /* Moves button to the middle vertically */
   left: 50%; /* Moves button to the middle horizontally */
-  transform: translate(-50%, -50%); /* Centers the button */
+  transform: translate(-50%,10%); /* Centers the button */
+
   
 }
 

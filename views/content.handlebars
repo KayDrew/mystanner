@@ -13,6 +13,7 @@
 <div class="container">
   <h1>Choose How Many Posts You Would Like To Analyze. </h1>
     <div class="dropdown-container">
+      <form action="/seeReactions" method="post">
         <!-- Top Selection Dropdown -->
         <select name="top-selection" id="top-selection">
             <option value="top-10">Top 10</option>
@@ -45,8 +46,10 @@
             <option value="last-year">Last Year</option>
             <option value="all-time">All Time</option>
         </select>
+        <button class="fancy-button" type="submit">View Reactions</button>
+    </form>
     </div>
-    <button class="fancy-button">View Reactions</button>
+    
     <div class="results">
       <ol>
     <li>❤️ Love~ 150</li>
