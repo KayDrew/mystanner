@@ -97,7 +97,7 @@ passport.use(new FacebookStrategy({
         return cb(null, false, { message: 'Invalid token' });
       }
     })
-    .catch(error => done(error));
+    .catch(error => cb(error));
 }));
 
 
