@@ -131,7 +131,7 @@ let checkLoggedIn = (req, res, next) => {
  
  app.get('/facebook', passport.authenticate('facebook', { authType: 'reauthenticate'}));
 
-app.get('/facebook/login', 
+app.get('/auth/facebook', 
   passport.authenticate('facebook', {
  failureRedirect: '/', successRedirect:'/content',
 
