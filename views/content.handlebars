@@ -1,80 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
 <head>
-<title>reactions</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Reactions Dashboard</title>
+    <style>
+        :root {
+            --primary-blue: #3498db;
+            --dark-blue: #2980b9;
+            --light-blue: #e6f2ff;
+            --primary-green: #2ecc71;
+            --dark-green: #27ae60;
+            --primary-indigo: #5d5fef;
+            --dark-indigo: #4b4dbf;
+            --light-indigo: #ececff;
+            --text-dark: #2c3e50;
+            --text-light: #7f8c8d;
+            --bg-light: #f9f9f9;
+            --card-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        h1 {
+            color: var(--primary-indigo);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+            transition: transform 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .card-title {
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        .time-period {
+            background-color: var(--light-indigo);
+            color: var(--primary-indigo);
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin: 10px 0;
+            color: var(--primary-indigo);
+        }
+
+        .stat-change {
+            display: flex;
+            align-items: center;
+            font-size: 0.9rem;
+            color: var(--text-light);
+        }
+
+        .change-up {
+            color: var(--primary-green);
+        }
+
+        .change-down {
+            color: #e74c3c;
+        }
+
+        .graph-placeholder {
+            height: 150px;
+            background-color: var(--light-blue);
+            border-radius: 5px;
+            margin-top: 15px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .graph-placeholder::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, var(--primary-blue), var(--primary-indigo));
+            opacity: 0.7;
+            clip-path: polygon(0% 100%, 0% 50%, 10% 60%, 20% 40%, 30% 60%, 40% 30%, 50% 70%, 60% 40%, 70% 60%, 80% 30%, 90% 50%, 100% 20%, 100% 100%);
+        }
+
+        .best-times {
+            grid-column: 1 / -1;
+            background-color: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: var(--card-shadow);
+        }
+
+        .best-times-header {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .best-times-title {
+            font-size: 1.5rem;
+            color: var(--primary-indigo);
+            margin-bottom: 5px;
+        }
+
+        .best-times-subtitle {
+            color: var(--text-light);
+        }
+
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+        }
+
+        .time-slot {
+            background-color: var(--light-indigo);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        .time-slot.best {
+            background-color: var(--primary-green);
+            color: white;
+        }
+
+        .time-slot.good {
+            background-color: var(--primary-blue);
+            color: white;
+        }
+
+        .time-slot.average {
+            background-color: var(--light-blue);
+        }
+
+        .time-label {
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .time-value {
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        @media (max-width: 768px) {
+            .dashboard-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 <body>
-<header>
-<a href="/"><img src="/images/logo.png" alt="logo"></a>
-<form action="/logout" method="post">
-<button class="subscribe-link" type="submit">
-<i class="fa fa-sign-out" aria-hidden="true"></i>
-    <span>Logout</span>
-  </button>
-  </form>
-<div class="container">
-  <h1>Choose How Many Posts You Would Like To Analyze. </h1>
-    <div class="dropdown-container">
-      <form action="/seeReactions" method="post">
-        <!-- Top Selection Dropdown -->
-        <select name="top-selection" id="top-selection">
-            <option value="top-10">Top 10</option>
-            <option value="top-20">Top 20</option>
-            <option value="top-50">Top 50</option>
-            <option value="top-100">Top 100</option>
-        </select>
+    <div class="container">
+        <header>
+            <h1>User Reactions Dashboard</h1>
+            <p class="subtitle">Track engagement and optimize your posting schedule</p>
+        </header>
 
-        <!-- Facebook Reactions Dropdown -->
-        <select name="facebook-reactions" id="facebook-reactions">
-            <option value="all">All</option>
-            <option value="like">👍 Like</option>
-            <option value="love">❤️ Love</option>
-            <option value="care">🥰 Care</option>
-            <option value="haha">😆 Haha</option>
-            <option value="wow">😮 Wow</option>
-            <option value="sad">😢 Sad</option>
-            <option value="angry">😡 Angry</option>
-        </select>
+        <div class="dashboard-grid">
+            <!-- 1 Day Stats -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Reactions</span>
+                    <span class="time-period">24 Hours</span>
+                </div>
+                <div class="stat-number">1,248</div>
+                <div class="stat-change change-up">
+                    ↑ 12% from yesterday
+                </div>
+                <div class="graph-placeholder"></div>
+            </div>
 
-        <!-- Time Range Dropdown -->
-        <select name="time-range" id="time-range">
-            <option value="today">Today</option>
-            <option value="yesterday">Yesterday</option>
-            <option value="this-week">This Week</option>
-            <option value="last-week">Last Week</option>
-            <option value="this-month">This Month</option>
-            <option value="last-month">Last Month</option>
-            <option value="this-year">This Year</option>
-            <option value="last-year">Last Year</option>
-            <option value="all-time">All Time</option>
-        </select>
-        <button class="fancy-button" type="submit">View Reactions</button>
-    </form>
+            <!-- 1 Week Stats -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Reactions</span>
+                    <span class="time-period">7 Days</span>
+                </div>
+                <div class="stat-number">8,756</div>
+                <div class="stat-change change-up">
+                    ↑ 5% from last week
+                </div>
+                <div class="graph-placeholder"></div>
+            </div>
+
+            <!-- 1 Month Stats -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Reactions</span>
+                    <span class="time-period">30 Days</span>
+                </div>
+                <div class="stat-number">32,891</div>
+                <div class="stat-change change-down">
+                    ↓ 3% from last month
+                </div>
+                <div class="graph-placeholder"></div>
+            </div>
+
+            <!-- 3 Months Stats -->
+            <div class="card">
+                <div class="card-header">
+                    <span class="card-title">Reactions</span>
+                    <span class="time-period">90 Days</span>
+                </div>
+                <div class="stat-number">98,452</div>
+                <div class="stat-change change-up">
+                    ↑ 8% from last quarter
+                </div>
+                <div class="graph-placeholder"></div>
+            </div>
+
+            <!-- Best Times to Post -->
+            <div class="best-times">
+                <div class="best-times-header">
+                    <h2 class="best-times-title">Optimal Posting Times</h2>
+                    <p class="best-times-subtitle">Based on average engagement over the past 30 days</p>
+                </div>
+                <div class="time-slots">
+                    <div class="time-slot average">
+                        <div class="time-label">Early Morning</div>
+                        <div class="time-value">6:00 AM</div>
+                        <div class="time-engagement">Avg. 42 reactions</div>
+                    </div>
+                    <div class="time-slot good">
+                        <div class="time-label">Late Morning</div>
+                        <div class="time-value">10:30 AM</div>
+                        <div class="time-engagement">Avg. 78 reactions</div>
+                    </div>
+                    <div class="time-slot best">
+                        <div class="time-label">Afternoon</div>
+                        <div class="time-value">2:15 PM</div>
+                        <div class="time-engagement">Avg. 112 reactions</div>
+                    </div>
+                    <div class="time-slot good">
+                        <div class="time-label">Evening</div>
+                        <div class="time-value">7:45 PM</div>
+                        <div class="time-engagement">Avg. 85 reactions</div>
+                    </div>
+                    <div class="time-slot average">
+                        <div class="time-label">Late Night</div>
+                        <div class="time-value">11:30 PM</div>
+                        <div class="time-engagement">Avg. 37 reactions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    
-    <div class="results">
-      <ol>
-    <li>❤️ Love~ 150</li>
-    <li>👍 Like ~ 140</li>
-    <li>🥰 Care~ 130</li>
-    <li>😮 Wow ~ 120</li>
-    <li>😭 Sad ~ 110</li>
-    <li>😡 Angry</li>
-
-  </ol>
-  </div>
-
-</div>
-
-<footer>
-   
-    <div class="footer-links">
-    <a href="/contact">Contact Us</a>
-      <a href="/privacypolicy">Privacy Policy</a>
-      <a href="/termsofservice">Terms of Service</a>
-      <a href="/datapolicy">Data Deletion Policy</a>
-      
-    </div>
-    <img src="/images/logo.png" alt="logo">
-     <p>© 2025 Mystanner. All Rights Reserved.</p>
-  </footer>
 </body>
 </html>
