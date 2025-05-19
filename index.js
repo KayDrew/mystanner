@@ -200,7 +200,7 @@ app.post('/facebook-data-deletion', (req, res) => {
     console.log('Data deletion request received for user ID:', data.user_id);
 
     // Construct a compliant deletion status URL
-    const statusUrl = `http://localhost:3000/account-deletion-status?code=${confirmationCode}`;
+    const statusUrl = `https://mystanner.onrender.com/account-deletion-status?code=${confirmationCode}`;
 
     // Respond in Meta's required format
     res.json({
