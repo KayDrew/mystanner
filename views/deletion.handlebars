@@ -1,11 +1,77 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Deletion Policy - MyStanner</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Data Deletion Policy - MyStanner</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(135deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+      background-size: 200% 200%;
+      animation: gradientShift 10s ease infinite;
+      color: #fff;
+    }
+
+    @keyframes gradientShift {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 40px auto;
+      background: #fff;
+      color: #333;
+      padding: 40px;
+      border-radius: 10px;
+      box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    h1, h2 {
+      color: #1877F2;
+    }
+
+    p, li {
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    ul {
+      padding-left: 20px;
+    }
+
+    hr {
+      margin: 30px 0;
+      border: 0;
+      border-top: 1px solid #ddd;
+    }
+
+    a {
+      color: #e1306c;
+      text-decoration: none;
+    }
+
+    a:hover {
+      text-decoration: underline;
+    }
+
+    strong {
+      font-weight: 600;
+    }
+
+    @media (max-width: 600px) {
+      .container {
+        padding: 20px;
+        margin: 20px;
+      }
+    }
+  </style>
 </head>
 <body>
+  <div class="container">
     <h1>Data Deletion Policy</h1>
     <p><strong>Last Updated:</strong> 06 March 2025</p>
     <p><strong>App Name:</strong> MyStanner</p>
@@ -17,18 +83,25 @@
     <h2>1. Data We Collect</h2>
     <p>When users log in to our app using Facebook Login, we collect the following information via the Meta Graph API:</p>
     <ul>
-        <li><strong>User ID</strong> (a unique identifier provided by Facebook)</li>
-        <li><strong>Access Token</strong> (used for authentication during the session)</li>
+      <li><strong>User ID</strong> (a unique identifier provided by Facebook)</li>
+      <li><strong>Access Token</strong> (used for authentication during the session)</li>
+      <li><strong>Post Data and Reactions</strong> (public metadata such as post IDs, timestamps, and reaction counts)</li>
     </ul>
-    <p>No additional personal data (e.g., name, email, profile picture, etc.) is stored by our app.</p>
+    <p>We do <strong>not</strong> collect sensitive personal content from posts. Only analytics-relevant metadata is accessed, in compliance with Meta’s policies.</p>
 
     <hr>
 
     <h2>2. How We Use the Data</h2>
     <p>The collected data is used solely for the following purposes:</p>
     <ul>
-        <li>To authenticate the user during their session.</li>
-        <li>To provide a personalized experience within the app during the session.</li>
+      <li>To authenticate the user during their session.</li>
+      <li>To provide a personalized experience within the app during the session.</li>
+      <li>To provide users with analytics based on their post activity and engagement trends, such as:</li>
+      <ul>
+        <li>Identifying optimal times to post based on reaction history.</li>
+        <li>Tracking whether engagement is increasing or decreasing over time.</li>
+        <li>Summarizing reaction metrics per post.</li>
+      </ul>
     </ul>
 
     <hr>
@@ -36,9 +109,9 @@
     <h2>3. Data Storage and Retention</h2>
     <p>We adhere to Meta's data retention requirements and do not store user data beyond the necessary timeframe. Specifically:</p>
     <ul>
-        <li><strong>Session Storage:</strong> User data (User ID and Access Token) is stored only for the duration of the user's session, which lasts a maximum of <strong>30 minutes</strong>.</li>
-        <li><strong>Logout:</strong> If the user logs out of the app before the 30-minute session expires, their data is deleted immediately.</li>
-        <li><strong>Automatic Deletion:</strong> After 30 minutes of inactivity, the user's session data is automatically deleted from our systems.</li>
+      <li><strong>Session Storage:</strong> User ID, Access Token, and post analytics data are stored only for the duration of the user's session (maximum <strong>30 minutes</strong>).</li>
+      <li><strong>Logout:</strong> Manual logout triggers immediate deletion of all collected data.</li>
+      <li><strong>Automatic Deletion:</strong> After 30 minutes of inactivity, all data is deleted automatically.</li>
     </ul>
 
     <hr>
@@ -46,9 +119,9 @@
     <h2>4. Data Deletion Process</h2>
     <p>We have implemented the following processes to ensure timely deletion of user data:</p>
     <ul>
-        <li><strong>Session Expiry:</strong> All user data is automatically deleted after 30 minutes from the start of the session.</li>
-        <li><strong>Manual Logout:</strong> If the user logs out manually, their data is deleted immediately.</li>
-        <li><strong>No Persistent Storage:</strong> We do not store user data in any persistent storage (e.g., databases, backups, or logs) beyond the active session.</li>
+      <li><strong>Session Expiry:</strong> All user data is automatically deleted after 30 minutes from the start of the session.</li>
+      <li><strong>Manual Logout:</strong> Triggers immediate deletion of session and analytics data.</li>
+      <li><strong>No Persistent Storage:</strong> We do not retain any user data in permanent storage systems (e.g., databases or backups).</li>
     </ul>
 
     <hr>
@@ -56,8 +129,8 @@
     <h2>5. User Requests for Data Deletion</h2>
     <p>If a user wishes to request the deletion of their data before the session expires, they can do the following:</p>
     <ul>
-        <li>Log out of the app manually, which will trigger immediate deletion of their data.</li>
-        <li>Contact us at <a href="mailto:info@belotechs.co.za">info@belotechs.co.za</a> for assistance with data deletion requests.</li>
+      <li>Log out of the app manually, which will trigger immediate deletion of their data.</li>
+      <li>Contact us at <a href="mailto:info@belotechs.co.za">info@belotechs.co.za</a> for assistance with data deletion requests.</li>
     </ul>
 
     <hr>
@@ -65,9 +138,9 @@
     <h2>6. Compliance with Meta Graph API Data Policy</h2>
     <p>We are committed to complying with Meta's Graph API Data Policy, which includes:</p>
     <ul>
-        <li>Not storing user data beyond the necessary timeframe.</li>
-        <li>Not using user data for any purpose other than authentication and session management.</li>
-        <li>Ensuring data is deleted promptly after the session ends or the user logs out.</li>
+      <li>Not storing user data beyond the necessary timeframe.</li>
+      <li>Not using user data for any purpose other than authentication and in-app analytics during the session.</li>
+      <li>Ensuring data is deleted promptly after the session ends or the user logs out.</li>
     </ul>
 
     <hr>
@@ -80,5 +153,6 @@
     <h2>8. Contact Us</h2>
     <p>If you have any questions or concerns about this Data Deletion Policy or how we handle your data, please contact us at:</p>
     <p><strong>Email:</strong> <a href="mailto:info@belotechs.co.za">info@belotechs.co.za</a></p>
+  </div>
 </body>
 </html>
