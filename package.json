@@ -20,6 +20,7 @@
   "homepage": "https://github.com/KayDrew/mystanner#readme",
   "dependencies": {
     "axios": "^1.8.2",
+    "compression": "^1.8.0",
     "cookie-parser": "^1.4.7",
     "cryptojs": "^2.5.3",
     "dotenv": "^16.4.5",
