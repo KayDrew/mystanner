@@ -12,7 +12,6 @@ const helmet = require('helmet');
 const compression = require('compression');
 
 dotenv.config();
-
 const app = express();
 const server = http.createServer(app);
 
@@ -32,13 +31,13 @@ app.use(cookieParser());
 app.use(compression());
 
 // Security headers
-
+app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
   directives: {
     defaultSrc: ["'self'", 'https://www.facebook.com'],
-    scriptSrc: ["'self'", 'https://*.facebook.net', 'https://*.googleapis.com', 'https://*.cloudflare.com'],
+    scriptSrc: ["'self'", 'https://connect.facebook.net'],
     connectSrc: ["'self'", 'https://graph.facebook.com'],
-    frameSrc: ['https://www.facebook.com'],
+    frameSrc: ['https://www.facebook.com', 'https://staticxx.facebook.com'],
     imgSrc: ["'self'", 'data:', 'https://*.facebook.com'],
     styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
     fontSrc: ["'self'", 'https://fonts.gstatic.com'],
@@ -46,7 +45,6 @@ app.use(helmet.contentSecurityPolicy({
     upgradeInsecureRequests: [],
   },
 }));
-
 app.use(helmet.crossOriginResourcePolicy({ policy: 'same-origin' }));
 app.use(helmet.hsts({ maxAge: 31536000, includeSubDomains: true }));
 app.use(helmet.noSniff());
@@ -58,22 +56,25 @@ app.use(session({
   secret: process.env.APP_SECRET,
   resave: false,
   saveUninitialized: false,
-  cookie: { maxAge: 1800000 },
+  cookie: {
+    maxAge: 1800000,
+    secure: process.env.NODE_ENV === 'production',
+    sameSite: 'lax',
+  },
 }));
 
 // Passport
 app.use(passport.initialize());
 app.use(passport.session());
 
+// Facebook Strategy
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: process.env.REDIRECT_URI,
+  callbackURL: 'https://mystanner.onrender.com/auth/facebook/callback', // Replace with your real domain
   profileFields: ['id', 'name'],
   enableProof: true,
   passReqToCallback: true,
-  authType: 'reauthenticate',
-  state: true,
 }, async (req, accessToken, _, profile, done) => {
   try {
     const { data } = await axios.get('https://graph.facebook.com/debug_token', {
@@ -139,14 +140,19 @@ const checkLoggedIn = (req, res, next) => req.isAuthenticated() ? res.redirect('
 // Routes
 app.get('/', checkLoggedIn, (req, res) => res.render('index'));
 app.get('/content', checkAuthenticated, (req, res) => res.render('content', req.user));
-app.get('/facebook', passport.authenticate('facebook', { authType: 'rerequest' }));
-app.get('/auth/facebook',
+
+// Trigger Facebook login
+app.get('/auth/facebook', passport.authenticate('facebook', { scope: ['public_profile', 'email'] }));
+
+// Facebook OAuth callback
+app.get('/auth/facebook/callback',
   passport.authenticate('facebook', {
     failureRedirect: '/',
     successRedirect: '/content',
   })
 );
 
+// Misc pages
 app.get('/privacypolicy', (req, res) => res.render('policy'));
 app.get('/termsofservice', (req, res) => res.render('terms'));
 app.get('/datadeletionpolicy', (req, res) => res.render('deletion'));
@@ -175,7 +181,7 @@ app.post('/facebook-data-deletion', (req, res) => {
   try {
     const data = parseSignedRequest(req.body.signed_request, process.env.FACEBOOK_APP_SECRET);
     const confirmationCode = crypto.randomBytes(16).toString('hex');
-    const statusUrl = `https://mystanner.onrender.com/account-deletion-status?code=${confirmationCode}`;
+    const statusUrl = `https://yourdomain.com/account-deletion-status?code=${confirmationCode}`;
 
     console.log('Data deletion request for user ID:', data.user_id);
 
