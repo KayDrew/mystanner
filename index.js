@@ -42,6 +42,7 @@ app.use(helmet.contentSecurityPolicy({
     styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
     fontSrc: ["'self'", 'https://fonts.gstatic.com'],
     objectSrc: ["'none'"],
+    formAction: ["'self'", 'https://mystanner.onrender.com'], // ✅ ALLOW form submissions to Facebook endpoint
     upgradeInsecureRequests: [],
   },
 }));
@@ -71,7 +72,7 @@ app.use(passport.session());
 passport.use(new FacebookStrategy({
   clientID: process.env.FACEBOOK_APP_ID,
   clientSecret: process.env.FACEBOOK_APP_SECRET,
-  callbackURL: 'https://mystanner.onrender.com/auth/facebook/callback', // Replace with your real domain
+  callbackURL: 'https://mystanner.onrender.com/auth/facebook/callback',
   profileFields: ['id', 'name'],
   enableProof: true,
   passReqToCallback: true,
