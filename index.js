@@ -30,7 +30,7 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(compression());
 
-// Security headers
+// Security headers with CSP updates
 app.use(helmet());
 app.use(helmet.contentSecurityPolicy({
   directives: {
@@ -39,10 +39,19 @@ app.use(helmet.contentSecurityPolicy({
     connectSrc: ["'self'", 'https://graph.facebook.com'],
     frameSrc: ['https://www.facebook.com', 'https://staticxx.facebook.com'],
     imgSrc: ["'self'", 'data:', 'https://*.facebook.com'],
-    styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
-    fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+    styleSrc: [
+      "'self'",
+      "'unsafe-inline'",
+      'https://fonts.googleapis.com',
+      'https://cdnjs.cloudflare.com' // ✅ Added for Font Awesome CDN
+    ],
+    fontSrc: [
+      "'self'",
+      'https://fonts.gstatic.com',
+      'https://cdnjs.cloudflare.com' // ✅ Added for Font Awesome fonts
+    ],
     objectSrc: ["'none'"],
-    formAction: ["'self'", 'https://mystanner.onrender.com'], // ✅ ALLOW form submissions to Facebook endpoint
+    formAction: ["'self'", 'https://mystanner.onrender.com'], // ✅ Allow form actions to own domain
     upgradeInsecureRequests: [],
   },
 }));
