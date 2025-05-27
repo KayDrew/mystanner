@@ -64,7 +64,7 @@ passport.use(new FacebookStrategy(
   {
     clientID: process.env.FACEBOOK_APP_ID,
     clientSecret: process.env.FACEBOOK_APP_SECRET,
-    callbackURL: 'http://localhost:3000/auth/facebook',
+    callbackURL:process.env.REDIRECT_URI,
     profileFields: ['id', 'name'],
     enableProof: true, // Automatically generates appsecret_proof
     passReqToCallback: true,
