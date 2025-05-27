@@ -51,7 +51,7 @@ app.use(helmet.contentSecurityPolicy({
       'https://cdnjs.cloudflare.com' // ✅ Added for Font Awesome fonts
     ],
     objectSrc: ["'none'"],
-    formAction: ["'self'", 'https://mystanner.onrender.com'], // ✅ Allow form actions to own domain
+    formAction: ["'self'", "https://mystanner.onrender.com", "https://www.facebook.com","https://mystanner.onrender.com/auth/facebook"],
     upgradeInsecureRequests: [],
   },
 }));
