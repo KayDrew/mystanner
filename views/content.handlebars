@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>User Reactions Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
             --primary-blue: #3498db;
@@ -14,6 +15,9 @@
             --primary-indigo: #5d5fef;
             --dark-indigo: #4b4dbf;
             --light-indigo: #ececff;
+            --primary-pink: #e84393;
+            --primary-yellow: #fdcb6e;
+            --primary-purple: #a55eea;
             --text-dark: #2c3e50;
             --text-light: #7f8c8d;
             --bg-light: #f9f9f9;
@@ -38,18 +42,32 @@
             margin: 0 auto;
         }
 
+        /* Updated to match original navigation style exactly */
         header {
-            display: grid;
-            grid-template-columns: 3fr 1fr 1fr; 
-margin-right: -3px; }
-            
-            header button{
-width: 100px;
-background-color: var(--bg-light);
-border: none;
-margin-top: -35px;
-
-}
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        header img {
+            height: 40px;
+        }
+        
+        header button {
+            background: none;
+            border: none;
+            color: var(--primary-indigo);
+            cursor: pointer;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        
+        header button i {
+            font-size: 1rem;
+        }
 
         h1 {
             color: var(--primary-indigo);
@@ -59,6 +77,7 @@ margin-top: -35px;
         .subtitle {
             color: var(--text-light);
             font-size: 1.1rem;
+            margin-bottom: 20px;
         }
 
         .dashboard-grid {
@@ -116,6 +135,7 @@ margin-top: -35px;
             align-items: center;
             font-size: 0.9rem;
             color: var(--text-light);
+            margin-bottom: 15px;
         }
 
         .change-up {
@@ -124,6 +144,54 @@ margin-top: -35px;
 
         .change-down {
             color: #e74c3c;
+        }
+
+        .reaction-breakdown {
+            margin-top: 15px;
+        }
+
+        .reaction-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #f0f0f0;
+        }
+
+        .reaction-item:last-child {
+            border-bottom: none;
+        }
+
+        .reaction-type {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .reaction-icon {
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .like { background-color: var(--primary-blue); }
+        .love { background-color: var(--primary-pink); }
+        .laugh { background-color: var(--primary-yellow); }
+        .wow { background-color: var(--primary-purple); }
+        .sad { background-color: var(--primary-indigo); }
+        .angry { background-color: #e74c3c; }
+
+        .reaction-count {
+            font-weight: 600;
+        }
+
+        .reaction-percentage {
+            color: var(--text-light);
+            font-size: 0.8rem;
         }
 
         .graph-placeholder {
@@ -207,6 +275,17 @@ margin-top: -35px;
             font-weight: 700;
         }
 
+        .reaction-summary {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .total-reactions {
+            font-weight: 600;
+            color: var(--primary-indigo);
+        }
+
         @media (max-width: 768px) {
             .dashboard-grid {
                 grid-template-columns: 1fr;
@@ -215,18 +294,16 @@ margin-top: -35px;
     </style>
 </head>
 <body>
-<header>
-<a href="/"><img src="/images/logo.png" alt="logo"></a>
-<form action="/logout" method="post">
-
-<button type="submit"><i class="fa fa-sign-out" aria-hidden="true">Logout</i></button>
-</form>
-</header>
+    <header>
+        <a href="/"><img src="/images/logo.png" alt="logo"></a>
+        <form action="/logout" method="post">
+            <button type="submit"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</button>
+        </form>
+    </header>
+    
     <div class="container">
-        
-            <h1>User Reactions Dashboard</h1>
-            <p class="subtitle">Track engagement and optimize your posting schedule</p>
-        
+        <h1>User Reactions Dashboard</h1>
+        <p class="subtitle">Track engagement and optimize your posting schedule</p>
 
         <div class="dashboard-grid">
             <!-- 1 Day Stats -->
@@ -239,7 +316,73 @@ margin-top: -35px;
                 <div class="stat-change change-up">
                     ↑ 12% from yesterday
                 </div>
-                <div class="graph-placeholder"></div>
+                
+                <div class="reaction-breakdown">
+                    <div class="reaction-summary">
+                        <span>Reaction breakdown:</span>
+                        <span class="total-reactions">1,248 total</span>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon like"><i class="fas fa-thumbs-up"></i></div>
+                            <span>Like</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">684</span>
+                            <span class="reaction-percentage">(54.8%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon love"><i class="fas fa-heart"></i></div>
+                            <span>Love</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">312</span>
+                            <span class="reaction-percentage">(25.0%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon laugh"><i class="fas fa-laugh"></i></div>
+                            <span>Haha</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">168</span>
+                            <span class="reaction-percentage">(13.5%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon wow"><i class="fas fa-surprise"></i></div>
+                            <span>Wow</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">48</span>
+                            <span class="reaction-percentage">(3.8%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon sad"><i class="fas fa-sad-tear"></i></div>
+                            <span>Sad</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">24</span>
+                            <span class="reaction-percentage">(1.9%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon angry"><i class="fas fa-angry"></i></div>
+                            <span>Angry</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">12</span>
+                            <span class="reaction-percentage">(1.0%)</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- 1 Week Stats -->
@@ -252,7 +395,73 @@ margin-top: -35px;
                 <div class="stat-change change-up">
                     ↑ 5% from last week
                 </div>
-                <div class="graph-placeholder"></div>
+                
+                <div class="reaction-breakdown">
+                    <div class="reaction-summary">
+                        <span>Reaction breakdown:</span>
+                        <span class="total-reactions">8,756 total</span>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon like"><i class="fas fa-thumbs-up"></i></div>
+                            <span>Like</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">4,805</span>
+                            <span class="reaction-percentage">(54.9%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon love"><i class="fas fa-heart"></i></div>
+                            <span>Love</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">2,189</span>
+                            <span class="reaction-percentage">(25.0%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon laugh"><i class="fas fa-laugh"></i></div>
+                            <span>Haha</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">1,182</span>
+                            <span class="reaction-percentage">(13.5%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon wow"><i class="fas fa-surprise"></i></div>
+                            <span>Wow</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">333</span>
+                            <span class="reaction-percentage">(3.8%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon sad"><i class="fas fa-sad-tear"></i></div>
+                            <span>Sad</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">166</span>
+                            <span class="reaction-percentage">(1.9%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon angry"><i class="fas fa-angry"></i></div>
+                            <span>Angry</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">81</span>
+                            <span class="reaction-percentage">(0.9%)</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- 1 Month Stats -->
@@ -265,7 +474,73 @@ margin-top: -35px;
                 <div class="stat-change change-down">
                     ↓ 3% from last month
                 </div>
-                <div class="graph-placeholder"></div>
+                
+                <div class="reaction-breakdown">
+                    <div class="reaction-summary">
+                        <span>Reaction breakdown:</span>
+                        <span class="total-reactions">32,891 total</span>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon like"><i class="fas fa-thumbs-up"></i></div>
+                            <span>Like</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">18,057</span>
+                            <span class="reaction-percentage">(54.9%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon love"><i class="fas fa-heart"></i></div>
+                            <span>Love</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">8,223</span>
+                            <span class="reaction-percentage">(25.0%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon laugh"><i class="fas fa-laugh"></i></div>
+                            <span>Haha</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">4,440</span>
+                            <span class="reaction-percentage">(13.5%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon wow"><i class="fas fa-surprise"></i></div>
+                            <span>Wow</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">1,250</span>
+                            <span class="reaction-percentage">(3.8%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon sad"><i class="fas fa-sad-tear"></i></div>
+                            <span>Sad</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">625</span>
+                            <span class="reaction-percentage">(1.9%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon angry"><i class="fas fa-angry"></i></div>
+                            <span>Angry</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">296</span>
+                            <span class="reaction-percentage">(0.9%)</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- 3 Months Stats -->
@@ -278,7 +553,73 @@ margin-top: -35px;
                 <div class="stat-change change-up">
                     ↑ 8% from last quarter
                 </div>
-                <div class="graph-placeholder"></div>
+                
+                <div class="reaction-breakdown">
+                    <div class="reaction-summary">
+                        <span>Reaction breakdown:</span>
+                        <span class="total-reactions">98,452 total</span>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon like"><i class="fas fa-thumbs-up"></i></div>
+                            <span>Like</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">54,050</span>
+                            <span class="reaction-percentage">(54.9%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon love"><i class="fas fa-heart"></i></div>
+                            <span>Love</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">24,613</span>
+                            <span class="reaction-percentage">(25.0%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon laugh"><i class="fas fa-laugh"></i></div>
+                            <span>Haha</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">13,291</span>
+                            <span class="reaction-percentage">(13.5%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon wow"><i class="fas fa-surprise"></i></div>
+                            <span>Wow</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">3,741</span>
+                            <span class="reaction-percentage">(3.8%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon sad"><i class="fas fa-sad-tear"></i></div>
+                            <span>Sad</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">1,871</span>
+                            <span class="reaction-percentage">(1.9%)</span>
+                        </div>
+                    </div>
+                    <div class="reaction-item">
+                        <div class="reaction-type">
+                            <div class="reaction-icon angry"><i class="fas fa-angry"></i></div>
+                            <span>Angry</span>
+                        </div>
+                        <div>
+                            <span class="reaction-count">886</span>
+                            <span class="reaction-percentage">(0.9%)</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Best Times to Post -->
@@ -317,17 +658,17 @@ margin-top: -35px;
             </div>
         </div>
     </div>
-  <footer class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 text-white py-4 text-center">
-    <div class="container mx-auto">
-      <p class="text-sm">&copy; 2025 MyStanner by Belo Technologies Pty (Ltd). All rights reserved.</p>
-      <div class="flex justify-center gap-4 mt-2 text-sm">
-        <a href="#" class="hover:text-blue-100">Facebook</a>
-        <a href="#" class="hover:text-pink-200">Instagram</a>
-        <a href="mailto:info@belotechs.co.za" class="hover:text-white">Contact</a>
-      </div>
-    </div>
-  </footer>
+    <footer class="bg-gradient-to-r from-blue-600 via-purple-600 to-pink-500 text-white py-4 text-center">
+        <div class="container mx-auto">
+            <p class="text-sm">&copy; 2025 MyStanner by Belo Technologies Pty (Ltd). All rights reserved.</p>
+            <div class="flex justify-center gap-4 mt-2 text-sm">
+                <a href="#" class="hover:text-blue-100">Facebook</a>
+                <a href="#" class="hover:text-pink-200">Instagram</a>
+                <a href="mailto:info@belotechs.co.za" class="hover:text-white">Contact</a>
+            </div>
+        </div>
+    </footer>
 
+    <script src="https://cdn.tailwindcss.com"></script>
 </body>
-<script src="https://cdn.tailwindcss.com"></script>
 </html>
